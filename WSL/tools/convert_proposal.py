@@ -185,7 +185,7 @@ def convert_mcg_seg_i(dataset_dict, dataset_name, dir_in, dir_out):
     num_superpixels = superpixels_i.max() + 1
 
     boxes_i = np.zeros((num_proposals, 4), dtype=np.int16)
-    oh_labels_i = np.zeros((num_proposals, num_superpixels), dtype=np.bool)
+    oh_labels_i = np.zeros((num_proposals, num_superpixels), dtype=bool)
 
     poses = []
     for l in range(num_superpixels):
@@ -253,7 +253,7 @@ def convert_mcg_seg_i(dataset_dict, dataset_name, dir_in, dir_out):
         pickle.dump(
             dict(
                 superpixels=superpixels_i.astype(np.int16),
-                oh_labels=oh_labels_i.astype(np.bool),
+                oh_labels=oh_labels_i.astype(bool),
                 scores=np.squeeze(scores_i.astype(np.float32)),
                 boxes=boxes_i.astype(np.int16),
                 indexes=index,
@@ -325,9 +325,9 @@ def convert_mcg_seg2():
         num_proposals = labels.shape[0]
         num_superpixels = superpixels.max() + 1
 
-        proposals = np.zeros((num_proposals, mask_h, mask_w), dtype=np.bool)
+        proposals = np.zeros((num_proposals, mask_h, mask_w), dtype=bool)
         boxes = np.zeros((num_proposals, 4), dtype=np.int16)
-        oh_labels_i = np.zeros((num_proposals, num_superpixels), dtype=np.bool)
+        oh_labels_i = np.zeros((num_proposals, num_superpixels), dtype=bool)
 
         poses = []
         for l in range(num_superpixels):
@@ -390,7 +390,7 @@ def convert_mcg_seg2():
             pickle.dump(
                 dict(
                     # proposals=np.packbits(proposals, axis=None),
-                    proposals=proposals.astype(np.bool),
+                    proposals=proposals.astype(bool),
                     scores=scores.astype(np.float32),
                     boxes=boxes.astype(np.int16),
                     indexes=index,
