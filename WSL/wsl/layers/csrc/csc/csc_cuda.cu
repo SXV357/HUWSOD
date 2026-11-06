@@ -6,6 +6,7 @@
 #include <ATen/cuda/CUDAContext.h>
 #include <c10/cuda/CUDAGuard.h>
 #include <ATen/cuda/CUDAApplyUtils.cuh>
+#include <ATen/ceil_div.h>
 
 const float kMIN_SCORE = -1.0 * 1e20;
 
@@ -467,7 +468,7 @@ at::Tensor csc_forward_cuda(
 
       // CSC Pooling
       cudaStream_t stream = at::cuda::getCurrentCUDAStream();
-      dim3 grid(std::min(at::cuda::ATenCeilDiv(long(num_rois), 512L), 4096L));
+      dim3 grid(std::min(at::ceil_div(long(num_rois), 512L), 4096L));
       dim3 block(512);
       CSCPool<float><<<grid, block, 0, stream>>>(
           num_rois,
