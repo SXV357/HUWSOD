@@ -1,7 +1,5 @@
 import numpy as np
 
-import pydensecrf.densecrf as dcrf
-from pydensecrf.utils import unary_from_softmax
 
 
 def dense_crf(
@@ -19,6 +17,9 @@ def dense_crf(
     bi_g_std=13,
     bi_b_std=13,
 ):
+    # lazy: pydensecrf only needed for seg heads, not HUWSOD detection
+    import pydensecrf.densecrf as dcrf
+    from pydensecrf.utils import unary_from_softmax
 
     # DeepLabv2_VGG16:
     # max_iter=10
