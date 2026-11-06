@@ -1,7 +1,7 @@
 from itertools import product
 
 import numpy as np
-from skimage.color import rgb2grey, rgb2hsv, rgb2lab
+from skimage.color import rgb2gray, rgb2hsv, rgb2lab
 from skimage.segmentation import felzenszwalb
 
 
@@ -33,7 +33,7 @@ def switch_color_space(img, target):
         return rgb2lab(img)
 
     elif target == "I":
-        return rgb2grey(img)
+        return rgb2gray(img)
 
     elif target == "rgb":
         img = img / np.sum(img, axis=0)
@@ -41,7 +41,7 @@ def switch_color_space(img, target):
 
     elif target == "rgI":
         img = img / np.sum(img, axis=0)
-        img[:, :, 2] = rgb2grey(img)
+        img[:, :, 2] = rgb2gray(img)
         return img
 
     elif target == "H":
